@@ -1,5 +1,5 @@
 var bcrypt = require('bcrypt');
-var jwt = require('jsonwebtoken');
+var jwtUtils = require('../utils/jwt.utils');
 var models = require('../models');
 
 //Routes
@@ -69,8 +69,8 @@ module.exports = {
                     bcrypt.compare(password, userFound.password, function (errBycrypt, resBycrypt) {
                         if (resBycrypt) {
                             return res.status(200).json({
-                                'userId': newUser.id,
-                                'token': 'THE TOKEN'
+                                'userId': userFound.id,
+                                'token': jwtUtils.generateTokenForUser(userFound)
                             });
                         } else {
                             return res.status(403).json({ 'error': 'invalid password' });
