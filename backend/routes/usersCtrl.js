@@ -120,7 +120,7 @@ module.exports = {
             }
         ], function (userFound) {
             if (userFound) {
-                return res.status(201).json({
+                return res.status(200).json({
                     'userId': userFound.id,
                     'token': jwtUtils.generateTokenForUser(userFound)
                 });
