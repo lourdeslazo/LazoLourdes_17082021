@@ -9,9 +9,23 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       messageId: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Messages',
+          key: 'id'
+        }
       },
       userId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id'
+        }
+      },
+      isLike: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       createdAt: {
