@@ -14,18 +14,18 @@ module.exports = {
                 expiresIn: '1h'
             })
     },
-    parseAuthorization: function (authorization) {
+    parseAuthorization: function(authorization) {
         return (authorization != null) ? authorization.replace('Bearer ', '') : null;
     },
-    getUserId: function (authorization) {
+    getUserId: function(authorization) {
         var userId = -1;
         var token = module.exports.parseAuthorization(authorization);
-        if (token != null) {
+        if(token != null) {
             try {
                 var jwtToken = jwt.verify(token, JWT_SIGN_SECRET);
-                if (jwtToken != null)
+                if(jwtToken != null)
                     userId = jwtToken.userId;
-            } catch (err) { }
+            } catch(err) { }
         }
         return userId;
     }

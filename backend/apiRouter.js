@@ -2,9 +2,10 @@
 var express = require('express');
 var usersCtrl = require('./routes/usersCtrl');
 var messagesCtrl = require('./routes/messagesCtrl');
+var likesCtrl = require('./routes/likesCtrl');
 
 // Router
-exports.router = (function () {
+exports.router = (function() {
     var apiRouter = express.Router();
 
     // Users routes
@@ -16,6 +17,10 @@ exports.router = (function () {
     //messages routes
     apiRouter.route('/messages/new/').post(messagesCtrl.createMessage);
     apiRouter.route('/messages/').get(messagesCtrl.listMessages);
+
+    //likes
+    apiRouter.route('/messages/:messageId/vote/like').post(likesCtrl.likePost);
+    apiRouter.route('messages/:messageId/vote/disLike').post(likesCtrl.dislikePost);
 
     return apiRouter;
 })();
