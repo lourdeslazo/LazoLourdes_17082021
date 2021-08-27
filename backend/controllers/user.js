@@ -18,7 +18,7 @@ exports.findOneProfil = (req, res, next) => {
     .catch(error => res.status(404).json({ error }))
 }
 
-exports.findAllProfile = (req, res) =>{
+exports.findAllProfil = (req, res) =>{
     models.User.findAll({
         attributes: { exclude: ['email', 'password', 'createdAt', 'updatedAt'] },
     })
