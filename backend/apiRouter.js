@@ -1,26 +1,51 @@
-// Imports
-var express = require('express');
-var usersCtrl = require('./routes/usersCtrl');
-var messagesCtrl = require('./routes/messagesCtrl');
-var likesCtrl = require('./routes/likesCtrl');
+// Modules requis
+const express = require('express');
+const path = require('path');
 
-// Router
-exports.router = (function() {
-    var apiRouter = express.Router();
+//Mise en place de la sécurité
+const cookieSession = require('cookie-session');
+const helmet = require('helmet');
+///ici rate limit
+const nocache = require("nocache");
 
-    // Users routes
-    apiRouter.route('/users/register/').post(usersCtrl.register);
-    apiRouter.route('/users/login/').post(usersCtrl.login);
-    apiRouter.route('/users/me/').get(usersCtrl.getUserProfile);
-    apiRouter.route('/users/me/').put(usersCtrl.updateUserProfile);
+const app = express();
+app.use(nocache());
 
-    //messages routes
-    apiRouter.route('/messages/new/').post(messagesCtrl.createMessage);
-    apiRouter.route('/messages/').get(messagesCtrl.listMessages);
+//ici rate limit
+app.use(helmet()); //Protection des entêtes Http
 
-    //likes
-    apiRouter.route('/messages/:messageId/vote/like').post(likesCtrl.likePost);
-    apiRouter.route('messages/:messageId/vote/disLike').post(likesCtrl.dislikePost);
+//Routes
+//ici
 
-    return apiRouter;
-})();
+
+
+//Accès à l'API depuis n'importe quelle origine
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    next();
+});
+
+//Cookies en Http
+const expiryDate = new Date( Date.now() + 60 * 60 * 1000); //1h
+
+app.use(cookieSession({
+  secret: 'sessionS3cur3',
+  cookie : {
+    secure : true,
+    httpOnly : true,
+    domain : 'http://localhost:8080',
+    expires: expiryDate
+  }
+}));
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
+//Enregistre les routes dans l'app
+///ici
+
+module.exports = app;
