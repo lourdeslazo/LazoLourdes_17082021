@@ -18,7 +18,7 @@ exports.findOneProfil = (req, res, next) => {
     .catch(error => res.status(404).json({ error }))
 }
 
-exports.findAllProfil = (req, res) =>{
+exports.findAllProfil = (req, res) => {
     models.User.findAll({
         attributes: { exclude: ['email', 'password', 'createdAt', 'updatedAt'] },
     })
@@ -32,7 +32,7 @@ exports.deleteOneUser = async (req, res) => {
     const isAdmin = jwtUtils.getAdmin(headerAuth);
 
     try{
-        const user = await models.User.findOne({ where: {id: req.params.userId} })
+        const user = await models.User.findOne({ where: {id: req.params.userId}})
 
         if (userId === user.id || isAdmin === true){
             if (user.profilPhoto !== null){ 
@@ -41,15 +41,15 @@ exports.deleteOneUser = async (req, res) => {
                 user.destroy({
                     where: {id: req.params.userId}
                 })
-                return res.json({ 'message' : 'User deleted'})
+                return res.json({ message : 'User deleted'})
             })
-            } else{
+            } else {
                 user.destroy({
                 where: {id: req.params.userId}
             })
-               return res.json({ 'message' : 'User deleted'})
+               return res.json({ message : 'User deleted'})
             }
-        } else {
+        }else {
             res.status(404).json({ 'error': 'authorization problem' });
         }
     }catch (err) {

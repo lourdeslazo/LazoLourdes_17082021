@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Like extends Model {
+  class Comment extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,37 +11,27 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.User.belongsToMany(models.Message, {
-        through: models.Like,
-        foreignKey: 'userId',
-        otherKey: 'messageId',
-      });
-  
-      models.Message.belongsToMany(models.User, {
-        through: models.Like,
-        foreignKey: 'messageId',
-        otherKey: 'userId',
-      });
-  
-      models.Like.belongsTo(models.User, {
-        foreignKey: 'userId',
+      models.Comment.belongsTo(models.User, {
+        onDelete: 'cascade',
+        foreignKey:'userId',
         as: 'user',
       });
-  
-      models.Like.belongsTo(models.Message, {
+
+      models.Comment.belongsTo(models.Message, {
+        onDelete: 'cascade',
         foreignKey: 'messageId',
         as: 'message',
       });
     }
   };
-  Like.init({
+  Comment.init({
     messageId: {
       type: DataTypes.INTEGER,
       references: {
         model: 'Message',
         key: 'id'
       }
-    }, 
+    },
     userId: {
       type: DataTypes.INTEGER,
       references: {
@@ -49,10 +39,23 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     },
-    isLike: DataTypes.INTEGER 
+    username: {
+      type: DataTypes.STRING,
+      references: {
+        model: 'User',
+        key: 'username'
+      }
+    },
+    comment: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: true,
+        min: 2,
+      }
+    },
   }, {
     sequelize,
-    modelName: 'Like',
+    modelName: 'Comment',
   });
-  return Like;
+  return Comment;
 };

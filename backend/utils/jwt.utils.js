@@ -9,12 +9,12 @@ module.exports = {
     generateTokenForUser: function(userData) {
         return jwt.sign({
             userId: userData.id,
-            isAdmin: userData.isAdmin,
+            isAdmin: userData.isAdmin
         },
-            JWT_SIGN_SECRET,
-            {
-                expiresIn: '24h'
-            })
+        JWT_SIGN_SECRET,
+        {
+            expiresIn: '24h'
+        })
     },
     parseAuthorization: function(authorization) {
         return (authorization != null) ? authorization.replace('Bearer ', '') : null;
