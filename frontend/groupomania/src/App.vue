@@ -1,17 +1,27 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+ 
+<router-view :key="$route.fullPath"></router-view>
+  
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+/*
+import axios from 'axios'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  created() {
+    axios.interceptors.request.use(
+      (config) => {
+        config.headers.authorization = `${this.$store.state.user.token}`;
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
   }
-}
+}*/
 </script>
 
 <style>
