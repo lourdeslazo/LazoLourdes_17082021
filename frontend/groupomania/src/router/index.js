@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
+import Signup from '@/views/Signup.vue';
 import Profil from '@/views/Profil.vue';
 import Message from '@/views/Message.vue';
 import UserDelete from '@/views/UserDelete.vue';
@@ -16,6 +17,15 @@ const routes = [
             requiresVisitor: true,
         },
     },
+    {
+      name: 'signup',
+      path: '/',
+      component: Signup,
+      meta: {
+          title: 'Sinscrire',
+          requiresVisitor: true,
+      },
+  },
     {
         name: 'home',
         path: '/home',
@@ -70,7 +80,7 @@ router.beforeEach((to, from, next) => {
     } else if (to.matched.some((routes) => routes.meta.requiresVisitor)) {
       if ((store.state.user.token)) {
         next({
-          name: 'login' || 'home' || 'message' || 'profil' || 'userDelete',
+          name: 'login' || 'signup' || 'home' || 'message' || 'profil' || 'userDelete',
         });
       } else {
         next();
