@@ -3,8 +3,8 @@ import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
 import Signup from '@/views/Signup.vue';
 import Profil from '@/views/Profil.vue';
-import Message from '@/views/Message.vue';
-import UserDelete from '@/views/UserDelete.vue';
+import Message from '@/components/Message.vue';
+import UserDelete from '@/components/UserDelete.vue';
 import store from '../store/index';
 
 const routes = [ 
