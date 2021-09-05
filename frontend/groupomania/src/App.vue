@@ -1,15 +1,11 @@
 <template>
- 
-<router-view :key="$route.fullPath"></router-view>
-  
+  <router-view :key="$route.fullPath"></router-view>
 </template>
 
 <script>
-/*
 import axios from 'axios'
-
 export default {
-  name: 'App',
+  name: "App",
   created() {
     axios.interceptors.request.use(
       (config) => {
@@ -21,7 +17,7 @@ export default {
       }
     );
   }
-}*/
+}
 </script>
 
 <style>

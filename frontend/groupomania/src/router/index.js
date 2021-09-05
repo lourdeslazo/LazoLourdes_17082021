@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '@/views/Home.vue';
 import Login from '@/views/Login.vue';
-import Signup from '@/views/Signup.vue';
+import Home from '@/views/Home.vue';
 import Profil from '@/views/Profil.vue';
 import Message from '@/components/Message.vue';
 import UserDelete from '@/components/UserDelete.vue';
@@ -14,27 +13,28 @@ const routes = [
         component: Login,
         meta: {
             title: 'Connexion',
-            requiresVisitor: true,
+            requiresUser: true,
         },
     },
-    {
-      name: 'signup',
-      path: '/',
-      component: Signup,
-      meta: {
-          title: 'Sinscrire',
-          requiresVisitor: true,
-      },
-  },
     {
         name: 'home',
         path: '/home',
         component: Home,
         meta: {
-            title: 'Accueil',
+            title: 'Bienvenue',
             requiresAuth: true,
         },
     },
+    {
+      name: 'profil',
+      path: '/profil',
+      component: Profil,
+      props: true,
+      meta: {
+          title: 'Profil',
+          requiresAuth: true,
+      },  
+  },
     {
         name: 'message',
         path: '/message/:id',
@@ -44,17 +44,7 @@ const routes = [
             title: 'Message',
             requiresAuth: true,
         },
-    },
-    {
-        name: 'profil',
-        path: '/profil',
-        component: Profil,
-        props: true,
-        meta: {
-            title: 'Profil',
-            requiresAuth: true,
-        },  
-    },
+    },  
     {
         name: 'userDelete',
         path: '/userDelete',
@@ -74,18 +64,18 @@ router.beforeEach((to, from, next) => {
         next({
           name: 'login'
         });
-      } else {
+      }else {
         next();
       }
-    } else if (to.matched.some((routes) => routes.meta.requiresVisitor)) {
+    }else if (to.matched.some((routes) => routes.meta.requiresUser)) {
       if ((store.state.user.token)) {
         next({
-          name: 'login' || 'signup' || 'home' || 'message' || 'profil' || 'userDelete',
+          name: 'home' || 'message' || 'profil',
         });
-      } else {
+      }else {
         next();
       }
-    } else {
+    }else {
       next();
     }
   });

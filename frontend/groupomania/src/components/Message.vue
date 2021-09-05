@@ -1,3 +1,3 @@
 <template>
-
+<main>hello</main>
 </template>
