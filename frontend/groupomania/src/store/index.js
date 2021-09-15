@@ -93,7 +93,7 @@ const store = createStore({
     login: ({commit}, userInfos) => {
       commit('setStatus');
       return new Promise((resolve, reject) => {
-        instance.message('/auth/login', userInfos)
+        instance.post('/auth/login', userInfos)
         .then(function (response) {
           commit('setStatus', '');
           commit('logUser', response.data);
@@ -109,7 +109,7 @@ const store = createStore({
       commit('setStatus');
       return new Promise((resolve, reject) => {
         commit;
-        instance.message('/auth/signup', userInfos)
+        instance.post('/auth/signup', userInfos)
         .then(function (response) {
           commit('setStatus', 'created');
           resolve(response);

@@ -52,7 +52,7 @@
                 placeholder="Decris toi en quelques mots">
               </textarea>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 mt-3">
               <input v-model="password"
                 type="password"
                 name="password"
@@ -93,7 +93,7 @@
               </button>
             </div>
             <div class="d-grid" v-else>
-              <p class="text-center mb-0">Deja inscrit(e) ?</p>
+              <p class="text-center mb-1 text-secondary">Deja inscrit(e) ?</p>
               <button @click="switchToLogin()" type="button" class="btn btn-danger text-light px-4 mx-auto">
                 Se connecter
               </button>
