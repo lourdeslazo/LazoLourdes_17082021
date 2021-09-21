@@ -1,10 +1,12 @@
 <template>
     <main>
-        <div class="container">
+        <div>
             <Nav />
+
             <div class="row">
+
                 <div class="col">
-            
+
                     <div class="
                      row
                      bg-light
@@ -17,7 +19,8 @@
                      py-3
                      ps-2"
                     >
-                        <div class="col-3 user-img">
+                    
+                    <div class="col-3 user-img">
                             <img src="images/lourdes.jpg" alt="user" />
                         </div>
                         <div class="col-9">
@@ -37,8 +40,7 @@
                         >
                       Supprimer
                        </button>
-                        </div>         
-                  
+                        </div>       
                     </div>
 
                     <div
@@ -57,12 +59,9 @@
                         <div>
                             <figure><img id="message_img" v-if="post.attachment !== null && post.attachment !== '' " :src="post.attachment" alt="image-post" /></figure>
                         </div>
-                
-                  
                     </div>
-            
 
-                <div>
+                </div>
 
                 <div v-for="(comment, id) in comments" :key="id" class="col">
                     <p>Lourdes Lazo</p>
@@ -74,6 +73,7 @@
                     </button>
    
                 </div> 
+
                 <form @submit.prevent="submitCom()">
                     <input type="text" v-model="comment" placeholder="Commentaire">
                     <button :class="{'button--disabled' : !validatedFields}" name="send-comment">
@@ -87,12 +87,13 @@
                     
                 </form>   
 
-              
             </div>
+            
         </div>
     </main>
 
 </template>
+
 
 <script>
 import Nav from '@/components/Nav.vue';

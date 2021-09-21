@@ -18,13 +18,12 @@
           >
             <span class="navbar-toggler-icon"></span>
           </button>
+
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
-              <router-link :to="`/signup`">
-                <li class="nav-item">
-                   <p class="nav-link text-danger">Sign up</p>
-                </li>
-              </router-link>
+              <li class="nav-item" @click="switchToProfil()">
+                <p class="nav-link">Profile</p>
+              </li>
               <li @click="logout()" class="nav-item">
                 <p class="nav-link text-danger">Se deconecter</p>
               </li>
@@ -36,13 +35,22 @@
 
 
 <script>
+import { mapState } from 'vuex'
 export default {
-    methods: {
-        logout: function () {
-            this.$store.commit('logout');
-            this.$router.push('/');
-        }
+  computed: {
+    ...mapState({
+      user: 'userInfos',
+    }),
+  },
+  methods: {
+    logout: function () {
+      this.$store.commit('logout');
+      this.$router.push('/');
+    },
+    switchToProfil: function () {
+      this.$router.push('/profil')
     }
+  }
     
 }
 </script>

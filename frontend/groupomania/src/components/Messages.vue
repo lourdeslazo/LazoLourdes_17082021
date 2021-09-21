@@ -4,7 +4,7 @@
         <div class="row">
           <div class="col">
             <div class="text-secondary mt-4">
-              <h1>Bienvenue Lourdes Lazo</h1>
+              <h1>Bonjour {{ user.username }} </h1>
             </div>
             <div><p class="fw-bold text-danger">Supprimer mon compte</p></div>
           </div>
@@ -150,7 +150,7 @@ import moment from 'moment'
                     return this.$store.state.users
                 },
                 messages() {
-                    return this.$store.state.posts
+                    return this.$store.state.messages
                 },
                 comments() {
                     return this.$store.state.comments

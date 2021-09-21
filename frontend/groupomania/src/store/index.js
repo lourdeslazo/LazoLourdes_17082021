@@ -76,10 +76,10 @@ const store = createStore({
     getMessages: function (state, messages) {
       state.messages = messages;
     },
-    getComs: function(state, comments) {
-      state.comments = comments
+    getComs: function (state, comments) {
+      state.comments = comments;
     },
-    deleteMessage: function (state, message){
+    deleteMessage: function (state, message) {
       let messages = state.messages.filter(p => p.id != message.id)
       state.messages = messages;
     },
@@ -120,9 +120,9 @@ const store = createStore({
         });
       });
     },
-    getUserInfos: ({commit})=> {
+    getUserInfos: ({commit}) => {
       instance.get('/users/userId')
-      .then(function (response) {
+      .then(function(response) {
         commit('userInfos', response.data);
       })
       .catch(function () {
@@ -130,9 +130,10 @@ const store = createStore({
     },
     getUsers: ({commit}) => {
       instance.get('/users')
-      .then(function(response) {
+      .then (function(response) {
         commit('getUsers', response.data)
-      }).catch(function(){
+      })
+      .catch(function (){
 
       })
     },
@@ -160,12 +161,13 @@ const store = createStore({
       instance.get('/messages')
       .then(function(response) {
         commit('getMessages', response.data.messages)
-      }).catch(function(){
+      })
+      .catch(function() {
       })
     },
     deleteMessage: ({commit}, message) => {
       instance.delete(`/messages/${message.id}`)
-      .then(function(response){
+      .then(function(response) {
         if (response.status == 200 || response.status == 204)
         commit('deleteMessage', message.id)
       })
@@ -177,13 +179,14 @@ const store = createStore({
       instance.get('/comments')
       .then(function(response) {
         commit('getComs', response.data.comments)
-      }).catch(function(){
+      })
+      .catch(function() {
 
       })
     },
     deleteComment: ({commit}, comment) => {
       instance.delete(`/comments/${comment.id}`)
-      .then(function(response){
+      .then(function(response) {
         if (response.status == 200 || response.status == 204)
         commit('deleteComment', comment.id)
       })
