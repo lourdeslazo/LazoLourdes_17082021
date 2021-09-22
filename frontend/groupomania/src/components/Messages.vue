@@ -4,6 +4,7 @@
         <div class="row">
           <div class="col">
             <div class="text-secondary mt-4">
+              <p>bjr</p>
               <h1>Bonjour {{ user.username }} </h1>
             </div>
             <div><p class="fw-bold text-danger">Supprimer mon compte</p></div>
@@ -183,7 +184,7 @@ import moment from 'moment'
                     fd.append("user", this.user)
                 }
                 this.submitStatus = "loading"
-                axios.message("http://localhost:3000/api/messages/new", fd)
+                axios.post("http://localhost:3000/api/messages/new", fd)
                 .then(response => {
                     this.content = response.data
                     this.attachment = response.data 
@@ -194,7 +195,7 @@ import moment from 'moment'
                 ));
                 
             },
-            deletePost: function (message) {
+            deleteMessage: function (message) {
                 let response = confirm('Êtes-vous sûr de vouloir supprimer ce post ? ')
                 if (response) {
                    this.$store.dispatch('deleteMessage', message)

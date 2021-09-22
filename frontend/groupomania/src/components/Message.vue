@@ -116,10 +116,10 @@ export default ({
         }
     },
     created() {
-        axios.get(`http://localhost:3000/api/posts/${this.id}`)
+        axios.get(`http://localhost:3000/api/messages/${this.id}`)
         .then(response => {
-            this.post = response.data.post
-           if (this.post){
+            this.message = response.data.message
+           if (this.message){
                this.comments = response.data.comments
            }            
         })
@@ -142,14 +142,14 @@ export default ({
                 
         },
         formattedDate (){
-            return moment(this.post.createdAt).format('DD-MM-YYYY');
+            return moment(this.message.createdAt).format('DD-MM-YYYY');
         }
     },
     methods: {
-        deletePost: function (post) {
+        deleteMessage: function (message) {
             let response = confirm('Êtes-vous sûr de vouloir supprimer ce post ? ')
             if (response) {
-                this.$store.dispatch('deleteMessage', post)
+                this.$store.dispatch('deleteMessage', message)
                 this.$router.push('/home');
                 return;
             }
