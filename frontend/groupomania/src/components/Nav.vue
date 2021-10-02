@@ -1,56 +1,76 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-white">
-        <div class="container">
-            <router-link :to="`/`">
-                <div class="navbar-brand brand-light">
-                   <img src="images/logo.png" alt="Logo" width="200px"/>
-                </div>
-            </router-link>
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a href="#">
+          <div class="navbar-brand brand-light"
+            ><img
+              src="@/assets/logo.png"
+              alt="Logo Groupomania"
+              width="250"
+              height="60"
+          /></div>
+        </a>
 
-          <button
-            class="navbar-toggler bg-danger"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
-          </button>
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
-              <li class="nav-item" @click="switchToProfil()">
-                <p class="nav-link">Profile</p>
-              </li>
-              <li @click="logout()" class="nav-item">
-                <p class="nav-link text-danger">Se deconecter</p>
-              </li>
-            </ul>
-          </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
+            <li class="nav-item" @click="switchToHome()">
+              <a class="nav-link border-top">Posts</a>
+            </li>
+            <li class="nav-item" @click="switchToIndex()">
+              <a class="nav-link border-top">Supprimer mon compte</a>
+            </li>
+            <li class="nav-item" @click="logout()"> 
+              <a class="nav-link border-top">Déconnexion</a>
+            </li>
+          </ul>
         </div>
-      </nav>
+      </div>
+    </nav>
+   </div>
 </template>
 
-
 <script>
-import { mapState } from 'vuex'
+let user = localStorage.getItem('user')
+
 export default {
-  computed: {
-    ...mapState({
-      user: 'userInfos',
-    }),
-  },
+  name: 'Nav',
+  user: user,
   methods: {
     logout: function () {
-      this.$store.commit('logout');
+      user = {
+                userId: -1,
+                token: '',
+            }
+            localStorage.clear();
       this.$router.push('/');
     },
-    switchToProfil: function () {
-      this.$router.push('/profil')
+    switchToIndex: function () {
+      this.$router.push('/')
+    },
+    switchToHome: function () {
+      this.$router.push('/home')
     }
   }
-    
 }
 </script>
+
+<style scoped>
+ 
+ li {
+   cursor: pointer;
+ }
+
+</style>
