@@ -1,42 +1,51 @@
 <template>
   <div>
-    <div class="col-12 col-lg-6 offset-lg-3">
-      <div class="container mt-5">
-        <div class="row mt-2">
-          <div class="col-10 offset-1 bg-light rounded shadow-sm mb-5">
-            <p class="text-center fs-5 fw-bold pt-3">Crée ton publication</p>
-            <div class="row my-3">
-              <div class="col border-bottom"></div>
-            </div>
-            <p class="text-start fw-bold">Bonjour {{ user }} </p>
-            <form id="form" @submit.prevent="postImage()" enctype="multipart/form-data">
-              <div class="row justify-content-center">
-                <div class="form-group">
-                  <label for="title">Title</label
+    <div class="container mb-4">
+      <div class="row">
+        <div class="col">
+          <div class="text-secondary text-left mt-4">
+            <h1>Bonjour {{ user }} </h1>
+          </div>
+        </div>
+
+        <div class="row justify-content-center my-3">
+          <div class="col-11 border-bottom ms-4"></div>
+        </div>
+        
+        <div class="col">
+          
+          <form id="form" @submit.prevent="postImage()" enctype="multipart/form-data">
+              
+              <div class="row bg-white shadow-sm w-auto border rounded mt-3 mx-3 py-3 ps-2">
+                <p class="text-center text-danger fs-5 fw-bold pt-1">Quoi de neuf ?</p>
+                <div class="form-group mb-2">
+                  <label for="title" class="visually-hidden"></label
                   >
                   <input
                     type="text"
-                    class="form-control"
+                    class="form-control rounded-pill clr-grey ps-4"
                     id="title"
+                    placeholder="Title"
                   >
                 </div>
 
                 <div class="form-group">
-                  <label for="content">Content</label
+                  <label for="content" class=" visually-hidden">Quoi de neuf?</label
                   >
-                  <input
-                    type="text"
-                    class="form-control"
+                  <textarea
+                    
+                    class="form-control rounded-pill clr-grey ps-4"
                     id="content"
-                  >
+                    placeholder="Content"
+                  ></textarea>
                 </div>
-              </div>
-              <p class="text-start ft-font fw-bold pt-3">Ajouter une image</p>
-              <div class="mb-3">
+
+                <p class="text-center text-danger ft-font fw-bold pt-4">Ajouter une image</p>
+              <div class="text-center pe-3 text-secondary">
                 <label for="attachment" class="form-label visually-hidden">Input fichier</label
                 >
                 <input
-                  class="form-control form-control-sm"
+                  class="form-control btn fw-bold px-4 mx-auto mt-1"
                   id="attachment"
                   type="file"
                   name="attachment"
@@ -44,18 +53,20 @@
                   v-on:change="handleFileUpload()"
                 />
               </div>
-              <div class="d-grid gap-2">
+              <div class="d-flex justify-content-center mb-2">
                 <button
                   type="submit"
-                  class="btn btn-primary mt-3 mb-4 fw-bold"
+                  class="btn btn-signup text-light fw-bold px-4 mx-auto mt-3"
                   @click.prevent="postImage"
                 >
-                Post
+                Publier
                 </button>
               </div>
+              </div>
+              
             </form>
           </div>
-        </div>
+        
       </div>
     </div>
   </div>
@@ -120,3 +131,18 @@ export default {
     }
 }
 </script>
+
+
+<style>
+body {
+  background-color: #f2f2f2;
+}
+
+.clr-grey {
+  background-color: #f2f2f2;
+}
+
+.btn-signup {
+  background-color: #39ac73;
+}
+</style>

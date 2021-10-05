@@ -3,10 +3,11 @@
     <div class="col-12 col-lg-6 offset-lg-3" v-for="message in messages.slice().reverse()" :key="message.id">
       <div class="container mt-1">
         <div class="row">
-          <div class="col-10 offset-1 bg-light rounded shadow-sm mb-3">
-            <h3 class="pt-3 mb-0">{{ message.title }}</h3>
-            <small class="text-start pe-0 text-secondary" >publié par <span class="fw-bold">{{ message.username }}</span></small>
-            <p class="pt-3 mb-1">{{ message.content }}</p>
+          <div class="col-10 offset-1 bg-white border rounded shadow-sm mb-3">
+            <p class="text-start mt-3 text-secondary" ><small>Publié par <span class="fw-bold">{{ message.username }}</span></small></p>
+            <h3 class="pt-3 text-start">{{ message.title }}</h3>
+            
+            <p class="mb-3 text-start">{{ message.content }}</p>
             <div>
               <img alt="image" class="col-12" :src="message.attachment" />
             </div>
@@ -34,7 +35,7 @@
               </div>    
             </div>
              
-            <postComment v-bind="$attrs"></postComment>
+          <postComment></postComment>
           </div>
         </div>
       </div>
@@ -94,7 +95,10 @@ export default {
             messages: [],
             message: {},
             comments: [],
-            comment: {},
+            comment: {
+              username: "",
+              comment: ""
+            },
             messageId: localStorage.getItem('messageId'),
             userId: localStorage.getItem('userId'),
             users: [],
@@ -129,3 +133,12 @@ export default {
     }
 }
 </script>
+
+
+<style>
+body {
+  background-color: #f2f2f2;
+}
+
+
+</style>

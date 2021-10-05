@@ -36,9 +36,7 @@ exports.createComment = async (req, res, next) => {
 }
 
 exports.findAllComments = (req, res) => {
-    models.Comment.findAll({
-        attributes: ['MessageId'],
-    })
+    models.Comment.findAll()
     .then(function(comments) {
         if (comments) {
             res.status(200).json({ comments : comments });

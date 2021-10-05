@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-white">
       <div class="container">
         <a href="#">
           <div class="navbar-brand brand-light"
@@ -13,7 +13,7 @@
         </a>
 
         <button
-          class="navbar-toggler"
+          class="navbar-toggler bg-danger"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
@@ -27,13 +27,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
             <li class="nav-item" @click="switchToHome()">
-              <a class="nav-link border-top">Posts</a>
+              <a class="nav-link border-top text-danger">Posts</a>
             </li>
-            <li class="nav-item" @click="switchToIndex()">
-              <a class="nav-link border-top">Supprimer mon compte</a>
+            <li class="nav-item" v-bind="user" @click.prevent="deleteUser(userId)">
+              <a class="nav-link border-top text-danger">Supprimer compte</a>
             </li>
             <li class="nav-item" @click="logout()"> 
-              <a class="nav-link border-top">Déconnexion</a>
+              <a class="nav-link border-top text-danger">Se deconecter</a>
             </li>
           </ul>
         </div>
@@ -43,11 +43,21 @@
 </template>
 
 <script>
-let user = localStorage.getItem('user')
+import axios from 'axios';
+let user = localStorage.getItem('user');
 
 export default {
   name: 'Nav',
   user: user,
+  props: {
+    user: {}
+  },
+  data() {
+    return {
+      userId: localStorage.getItem('userId'),
+      token: localStorage.getItem('token')
+    }
+  },
   methods: {
     logout: function () {
       user = {
@@ -57,8 +67,16 @@ export default {
             localStorage.clear();
       this.$router.push('/');
     },
-    switchToIndex: function () {
-      this.$router.push('/')
+    deleteUser(userId) {
+      axios.delete(`http://localhost:3000/api/users/${userId}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization": "Bearer " + this.token
+                
+        }
+      })
+      .then(() => this.$router.push('/signup'))
+
     },
     switchToHome: function () {
       this.$router.push('/home')
@@ -68,6 +86,10 @@ export default {
 </script>
 
 <style scoped>
+
+body {
+  background-color: white;
+}
  
  li {
    cursor: pointer;
