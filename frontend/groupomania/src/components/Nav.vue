@@ -75,7 +75,9 @@ export default {
                 
         }
       })
-      .then(() => this.$router.push('/signup'))
+      .then(() => {
+        localStorage.clear();
+        this.$router.push('/signup')})
 
     },
     switchToHome: function () {

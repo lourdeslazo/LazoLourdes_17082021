@@ -20,6 +20,7 @@ exports.createComment = async (req, res, next) => {
     })
     .then(async function(user) {
         if(user){
+         
             let newComment = await models.Comment.create({ 
                 userId: userId,
                 messageId: req.params.messageId,

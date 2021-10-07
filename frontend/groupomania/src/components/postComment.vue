@@ -33,11 +33,11 @@
 
 <script>
 import axios from "axios"
-
 export default {
     name: "postComment",
     data() {
         return {
+          id: this.$route.params.id,
             userId: localStorage.getItem('userId'),
             token: localStorage.getItem('token'),
             messageId: localStorage.getItem('messageId'),
@@ -50,7 +50,7 @@ export default {
 
     created() {
       
-      axios.get('http://localhost:3000/api/messages/:id',
+      axios.get(`http://localhost:3000/api/messages/${this.id}`,
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -72,19 +72,34 @@ export default {
     },
 
     methods: {
-        postComm(messageId) {
+      postComm() {
+        let comment = {
+          userId : localStorage.getItem('userId'),
+          messageId : localStorage.getItem('messageId'),
+          comment : comment,
+          username : localStorage.getItem('username')
+        }
+
+        let head = {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": 'Bearer ' + this.token
+          }
+
+        }
           
-            axios.post(`http://localhost:3000/api/comments/${messageId}`,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + this.token
-              }
-              
-            
-            })
-            .then(() => this.$router.go())
-        },
+        axios.post(`http://localhost:3000/api/comments/${this.id}`, {
+          comment: this.comment,
+          head: head
+        })  
+        .then(response => {
+          this.comment = response.data.comment
+          this.$router.go();
+        })
+        .catch((error) => (
+          console.log (error)
+          ))
+      }
     }
 }
 </script>
