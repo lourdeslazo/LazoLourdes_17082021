@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <div class="col-12">
       <div class="container mt-1 px-3">
         <div class="row mt-3">
@@ -10,7 +10,7 @@
                 <textarea
                     class="form-control"
                     name="comment"
-                    id="comment"
+                    id="comment"     
                     placeholder="Écrire un commentaire..."
                 ></textarea>
               </div>
@@ -41,10 +41,10 @@ export default {
             userId: localStorage.getItem('userId'),
             token: localStorage.getItem('token'),
             messageId: localStorage.getItem('messageId'),
-            username: "",
-            comment: "",
+            username: '',
+            comment: '',
             message: {},
-            comments: []
+            comments: [],           
         }
     },
 
@@ -72,38 +72,22 @@ export default {
     },
 
     methods: {
-      postComm() {
-        let comment = {
-          userId : localStorage.getItem('userId'),
-          messageId : localStorage.getItem('messageId'),
-          comment : comment,
-          username : localStorage.getItem('username')
-        }
-
-        let head = {
+      postComm(messageId) {
+        axios.post(`http://localhost:3000/api/comments/${messageId}`,
+        {
           headers: {
             "Content-Type": "application/json",
             "Authorization": 'Bearer ' + this.token
           }
-
-        }
-          
-        axios.post(`http://localhost:3000/api/comments/${this.id}`, {
-          comment: this.comment,
-          head: head
-        })  
-        .then(response => {
-          this.comment = response.data.comment
-          this.$router.go();
         })
-        .catch((error) => (
-          console.log (error)
-          ))
-      }
+        .then(() => {
+          this.$router.go();
+        });
+        }
+
     }
 }
 </script>
-
 <style>
 
 .btn-signup {

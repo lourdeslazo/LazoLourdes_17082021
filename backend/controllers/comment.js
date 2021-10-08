@@ -5,7 +5,7 @@ const jwtUtils = require('../utils/jwt.utils');
 exports.createComment = async (req, res, next) => {
     const headerAuth = await req.headers['authorization'];
     const userId = jwtUtils.getUserId(headerAuth);
-
+    
     //constantes
     const messageId = req.params.id;
 
